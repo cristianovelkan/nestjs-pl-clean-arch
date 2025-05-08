@@ -45,4 +45,11 @@ export class TransactionEntity {
         }
     }
 
+    toJSON() {
+        return {
+            id: this.id,
+            ...this.props,
+        };
+    }
+
 }
