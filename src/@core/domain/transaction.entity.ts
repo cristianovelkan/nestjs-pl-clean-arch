@@ -36,11 +36,11 @@ export class TransactionEntity {
       throw new Error('Transaction amount cannot be negative.')
     }
 
-    if (props.timestamp > new Date()) {
+    if (new Date(props.timestamp).getTime() > Date.now()) {
       throw new Error('Transaction timestamp cannot be in the future.')
     }
 
-    if (props.timestamp < new Date(0)) {
+    if (!new Date(props.timestamp).getTime()) {
       throw new Error('Transaction timestamp must be valid.')
     }
   }

@@ -1,0 +1,15 @@
+###
+POST http://localhost:3000/transactions
+Content-Type: application/json
+
+{
+    "amount": 100,
+    "timestamp": "2025-05-09T20:03:00Z"
+}
+
+###
+GET http://localhost:3000/statistics
+
+###
+DELETE http://localhost:3000/transactions
+
