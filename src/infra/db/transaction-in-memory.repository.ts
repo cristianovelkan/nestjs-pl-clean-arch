@@ -10,4 +10,8 @@ export class TransactionInMemoryRepository implements TransactionRepositoryInter
     async deleteAll(): Promise<void> {
         this.items = [];
     }
+
+    async findAll(): Promise<TransactionEntity[]> {
+        return this.items;
+    }
 }
