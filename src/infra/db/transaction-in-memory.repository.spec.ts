@@ -13,4 +13,17 @@ describe("TransactionInMemoryRepository Test", () => {
     expect(repository.items).toHaveLength(1);
     expect(repository.items).toStrictEqual([transaction]);
   });
+
+  it("should delete all transactions", async () => {
+    const repository = new TransactionInMemoryRepository();
+    const transactionProps: TransactionProps = {
+      amount: 100,
+      timestamp: new Date(),
+    };
+    const transaction = new TransactionEntity(transactionProps);
+    await repository.insert(transaction);
+    expect(repository.items).toHaveLength(1);
+    await repository.deleteAll();
+    expect(repository.items).toHaveLength(0);
+  });
 });
