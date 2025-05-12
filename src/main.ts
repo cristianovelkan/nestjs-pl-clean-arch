@@ -6,6 +6,10 @@ import helmet from 'helmet'
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   app.use(helmet())
+  app.enableCors({
+    allowedHeaders: 'Content-Type, Accept',
+    methods: 'GET,HEAD,POST,DELETE',
+  })
   app.useGlobalPipes(
     new ValidationPipe({
       errorHttpStatusCode: 422,

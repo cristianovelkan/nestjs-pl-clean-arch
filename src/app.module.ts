@@ -1,9 +1,7 @@
-import { Module } from '@nestjs/common'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
+import { Module, MiddlewareConsumer } from '@nestjs/common'
 import { TransactionsModule } from './transactions/transactions.module'
 import { ThrottlerModule } from '@nestjs/throttler'
-
+import { JSONMiddleware } from './middlewares/json.middleware'
 @Module({
   imports: [
     ThrottlerModule.forRoot({
@@ -16,7 +14,11 @@ import { ThrottlerModule } from '@nestjs/throttler'
     }),
     TransactionsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(JSONMiddleware).forRoutes('*')
+  }
+}
