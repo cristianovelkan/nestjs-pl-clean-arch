@@ -4,12 +4,13 @@ Content-Type: application/json
 
 {
     "amount": 100,
-    "timestamp": "2025-05-09T20:03:00Z"
+    "timestamp": "2025-05-11T20:03:00Z"
 }
 
 ###
 GET http://localhost:3000/statistics
+Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/transactions
-
+Content-Type: application/json
