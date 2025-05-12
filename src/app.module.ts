@@ -4,6 +4,8 @@ import { ThrottlerModule } from '@nestjs/throttler'
 import { JSONMiddleware } from './middlewares/json.middleware'
 import { WinstonModule } from 'nest-winston'
 import * as winston from 'winston'
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
 @Module({
   imports: [
     WinstonModule.forRootAsync({
@@ -55,11 +57,11 @@ import * as winston from 'winston'
     }),
     TransactionsModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(JSONMiddleware).forRoutes('*')
+    consumer.apply(JSONMiddleware).exclude('health', 'api').forRoutes('*')
   }
 }

@@ -38,10 +38,6 @@ describe('Integration Tests (e2e)', () => {
     await app.close()
   })
 
-  it('should respond to GET / with 404 (assuming no root route exists)', async () => {
-    await request(app.getHttpServer()).get('/').expect(404)
-  })
-
   it('should include security headers from helmet', async () => {
     const response = await request(app.getHttpServer()).get('/')
     expect(response.headers['content-security-policy']).toBe(
