@@ -62,4 +62,21 @@ describe('Integration Tests (e2e)', () => {
     expect(response.headers['x-powered-by']).toBe(undefined)
     expect(response.headers['x-xss-protection']).toBe('0')
   })
+
+  it('should return 400 if Content-Type is not application/json', async () => {
+    await request(app.getHttpServer())
+      .post('/test-middleware')
+      .set('Content-Type', 'text/plain') // Invalid Content-Type
+      .send('Invalid payload')
+      .expect(400)
+      .expect('Only JSON is accepted')
+  })
+
+  it('should allow requests with Content-Type application/json', async () => {
+    await request(app.getHttpServer())
+      .post('/test-middleware')
+      .set('Content-Type', 'application/json') // Valid Content-Type
+      .send({ valid: 'payload' })
+      .expect(404) // Assuming no handler is defined for this route
+  })
 })
