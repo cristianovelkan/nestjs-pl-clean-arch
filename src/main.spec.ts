@@ -63,6 +63,21 @@ describe('Integration Tests (e2e)', () => {
     expect(response.headers['x-xss-protection']).toBe('0')
   })
 
+  it('should allow CORS', async () => {
+    const response = await request(app.getHttpServer())
+      .options('/')
+      .set('Origin', 'http://example.com')
+      .expect(204)
+
+    expect(response.headers['access-control-allow-origin']).toBe('*')
+    expect(response.headers['access-control-allow-methods']).toBe(
+      'GET,HEAD,POST,DELETE',
+    )
+    expect(response.headers['access-control-allow-headers']).toBe(
+      'Content-Type, Accept',
+    )
+  })
+
   it('should return 400 if Content-Type is not application/json', async () => {
     await request(app.getHttpServer())
       .post('/test-middleware')
